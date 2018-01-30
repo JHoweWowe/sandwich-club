@@ -18,12 +18,12 @@ public class JsonUtils {
 
     public static Sandwich parseSandwichJson(String json) {
 
-        String mainName;
-        List<String> alsoKnownAs;
-        String placeOfOrigin;
-        String description;
-        String imageURL;
-        List<String> ingredientsList;
+        String mainName = "";
+        List<String> alsoKnownAs = new ArrayList<String>();
+        String placeOfOrigin = "";
+        String description = "";
+        String imageURL = "";
+        List<String> ingredientsList = new ArrayList<String>();
 
         //First one must assume that the JSON string may be empty or invalid, so return null if matches with those cases
         if (TextUtils.isEmpty(json)) {
@@ -31,11 +31,11 @@ public class JsonUtils {
         }
         try {
             //Perhaps I will need another "for loop" around here...
-            JSONObject rootObject = new JSONObject();
+            JSONObject rootObject = new JSONObject(json);
             JSONObject nameJSONObject = rootObject.getJSONObject("name");
-            mainName = nameJSONObject.getString("name");
-            JSONArray aliasJSONArray = nameJSONObject.getJSONArray("alsoknownas");
-            alsoKnownAs = new ArrayList<String>();
+            mainName = nameJSONObject.getString("mainName");
+
+            JSONArray aliasJSONArray = nameJSONObject.getJSONArray("alsoKnownAs");
             for (int i = 0; i < aliasJSONArray.length(); i++) {
                 String extraName = aliasJSONArray.getString(i);
                 alsoKnownAs.add(extraName);
@@ -47,7 +47,6 @@ public class JsonUtils {
             imageURL = rootObject.getString("image");
 
             JSONArray ingredientsJSONArray = rootObject.getJSONArray("ingredients");
-            ingredientsList = new ArrayList<String>();
             for (int i = 0; i < ingredientsJSONArray.length(); i++) {
                 //Check logic
                 String ingredient = ingredientsJSONArray.getString(i);

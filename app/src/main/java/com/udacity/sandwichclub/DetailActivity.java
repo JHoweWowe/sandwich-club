@@ -8,12 +8,15 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.udacity.sandwichclub.model.Sandwich;
+import com.udacity.sandwichclub.model.SandwichAdapter;
 import com.udacity.sandwichclub.utils.JsonUtils;
 
 public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
+
+    private SandwichAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +60,6 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI() {
-
 
     }
 }
