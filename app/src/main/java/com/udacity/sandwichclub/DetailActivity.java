@@ -67,7 +67,7 @@ public class DetailActivity extends AppCompatActivity {
         finish();
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
-
+    //Important Note: I don't need a SandwichAdapter as the adapter is already shown in the MainActivity as a simplicatino
     private void populateUI(Sandwich sandwich) {
 
         placeOfOriginTextView.setText(sandwich.getPlaceOfOrigin());
