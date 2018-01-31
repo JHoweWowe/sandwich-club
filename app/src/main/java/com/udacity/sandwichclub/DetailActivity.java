@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.udacity.sandwichclub.model.Sandwich;
-import com.udacity.sandwichclub.model.SandwichAdapter;
 import com.udacity.sandwichclub.utils.JsonUtils;
 
 public class DetailActivity extends AppCompatActivity {
@@ -16,7 +16,10 @@ public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
 
-    private SandwichAdapter mAdapter;
+    private TextView descriptionTextView;
+    private TextView alsoKnownAsTextView;
+    private TextView ingredientsTextView;
+    private TextView placeOfOriginTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,12 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         ImageView ingredientsIv = findViewById(R.id.image_iv);
+
+        //For testing purposes to show the Sandwich details
+        descriptionTextView = findViewById(R.id.description_tv);
+        alsoKnownAsTextView = findViewById(R.id.also_known_tv);
+        ingredientsTextView = findViewById(R.id.ingredients_tv);
+        placeOfOriginTextView = findViewById(R.id.origin_tv);
 
         Intent intent = getIntent();
         if (intent == null) {
@@ -46,7 +55,7 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
 
-        populateUI();
+        populateUI(sandwich);
         Picasso.with(this)
                 .load(sandwich.getImage())
                 .into(ingredientsIv);
@@ -59,7 +68,17 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
-    private void populateUI() {
+    private void populateUI(Sandwich sandwich) {
 
+        placeOfOriginTextView.setText(sandwich.getPlaceOfOrigin());
+
+        if (sandwich.getAlsoKnownAs().isEmpty()) {
+            alsoKnownAsTextView.setText(R.string.no_also_known_as);
+        }
+        else {
+            alsoKnownAsTextView.setText(sandwich.getAlsoKnownAs().toString());
+        }
+        descriptionTextView.setText(sandwich.getDescription());
+        ingredientsTextView.setText(sandwich.getIngredients().toString());
     }
 }
